@@ -21,7 +21,7 @@ fun VImageViewClick (
     modifier: Modifier = Modifier.size(24.dp)
 
 ){
-    IconButton(onClick = {onClick}){
+    IconButton(onClick = {onClick()}){
         Icon(
             imageVector = imageVector,
             contentDescription = imageDescription,

@@ -17,6 +17,8 @@ class MainActivity : ComponentActivity() {
         object AuthSignin : Screen("auth/signin")
 
         object AuthSignup : Screen("auth/signup")
+
+        object Home : Screen("feature/home")
     }
 
 
@@ -41,6 +43,10 @@ class MainActivity : ComponentActivity() {
                             navController = navController
                         )
                     }
+
+//                    composable(Screen.Home.route){
+//                        HomeScreen(navController = navController)
+//                    }
                 }
             }
         }

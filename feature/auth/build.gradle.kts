@@ -54,8 +54,7 @@ dependencies {
     implementation(libs.androidx.material3)
 
     // Additional Library
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
+    implementation(libs.androidx.hilt.navigation.compose)
     // ----------------------
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

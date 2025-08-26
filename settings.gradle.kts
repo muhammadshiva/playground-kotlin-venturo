@@ -23,3 +23,5 @@ rootProject.name = "Playground Venturo"
 include(":app")
 include(":feature:auth")
 include(":core:ui")
+include(":feature:home")
+include(":core:navigator")

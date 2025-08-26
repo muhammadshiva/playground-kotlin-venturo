@@ -43,10 +43,6 @@ class MainActivity : ComponentActivity() {
                             navController = navController
                         )
                     }
-
-//                    composable(Screen.Home.route){
-//                        HomeScreen(navController = navController)
-//                    }
                 }
             }
         }

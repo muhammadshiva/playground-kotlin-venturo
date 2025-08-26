@@ -42,6 +42,8 @@ android {
 dependencies {
     // Module
     implementation(project(":feature:auth"))
+    implementation(project(":feature:home"))
+
 
     // Library
     implementation(libs.androidx.core.ktx)

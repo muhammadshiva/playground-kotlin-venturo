@@ -1,7 +1,8 @@
-package com.playground.home
+package com.playground.home.ui
 
 // import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,12 +14,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -31,12 +37,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-// import com.playground.home.R
+import com.playground.ui.components.VImageViewClick
+import com.playground.ui.components.VImageViewPhotoUrl
+import com.playground.ui.components.VTextRegular
 
 @Composable
 fun HomeScreen() {
@@ -72,36 +78,60 @@ fun HomeScreen() {
                 }
             }
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding).padding(16.dp)) {
+        Column(modifier = Modifier.padding(innerPadding).padding(16.dp).fillMaxSize()) {
+            SearchField()
+            Spacer(modifier = Modifier.height(20.dp))
             Text(
                     "Scan History",
                     style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
             )
             Spacer(Modifier.height(18.dp))
-            CardProduct(
-                merchant = "Pertamina",
-                product = "Gas LPG 3 KG",
-                date = "20 Agustus 2025 | 10:00"
-            )
-            CardProduct(
-                merchant = "Pertamina",
-                product = "Gas LPG 3 KG",
-                date = "20 Agustus 2025 | 10:00"
-            )
-            CardProduct(
-                merchant = "Pertamina",
-                product = "Gas LPG 3 KG",
-                date = "20 Agustus 2025 | 10:00"
-            )
+
+            val temp =
+                    listOf(
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                            "https://storage.googleapis.com/sequre-web-staging/lpg-3kg_681829c7da5c0.jpg",
+                    )
+
+            SubItemList(temp)
+        }
+    }
+}
+
+@Composable
+fun SearchField() {
+
+    Card(modifier = Modifier.fillMaxWidth().clickable {}, colors = CardDefaults.cardColors()) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            VImageViewClick(color = Color.Black, imageVector = Icons.Outlined.Search, onClick = {})
+            VTextRegular(text = "Search by product")
         }
     }
 }
 
 @Composable
 fun CardProduct(
-    merchant: String,
-    product: String,
-    date: String,
+        merchant: String,
+        product: String,
+        date: String,
+        url: String,
 ) {
     Box(modifier = Modifier.padding(bottom = 16.dp)) {
         Row(
@@ -125,11 +155,10 @@ fun CardProduct(
                                     .padding(8.dp),
                     contentAlignment = Alignment.Center
             ) {
-                Icon(
-                        imageVector = Icons.Default.Warning,
-                        contentDescription = "No Image",
-                        modifier = Modifier.size(24.dp),
-                        tint = Color.Gray
+                VImageViewPhotoUrl(
+                    url = url,
+                    description = "Photo",
+                    modifier = Modifier.width(100.dp).height(100.dp)
                 )
             }
 
@@ -154,10 +183,7 @@ fun CardProduct(
                     )
                 }
                 Spacer(Modifier.height(3.dp))
-                Text(
-                        product,
-                        style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                )
+                Text(product, style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 14.sp))
                 Spacer(Modifier.height(3.dp))
                 Text(
                         date,
@@ -173,8 +199,19 @@ fun CardProduct(
     }
 }
 
-@Preview(device = Devices.NEXUS_5, showSystemUi = true)
 @Composable
-fun MainScreenPreview() {
-    HomeScreen()
+fun SubItemList(subItems: List<String>) {
+    LazyColumn() {
+        items(subItems) {
+            item ->
+                CardProduct(
+                    merchant = "Pertamina",
+                    product = "Gas LPG 3 KG",
+                    date = "20 Agustus 2025 | 10:00",
+                    url = item
+                )
+
+        }
+    }
 }
+

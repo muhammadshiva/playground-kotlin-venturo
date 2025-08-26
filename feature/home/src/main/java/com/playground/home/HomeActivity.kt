@@ -1,10 +1,11 @@
-package com.playground.home.ui
+package com.playground.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Surface
+import com.playground.home.ui.HomeScreen
 import com.playground.ui.theme.PlaygroundVenturoTheme
 
 class HomeActivity : ComponentActivity() {

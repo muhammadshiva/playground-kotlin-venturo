@@ -53,7 +53,8 @@ fun SigninScreen(
             VTextRegularWithClick(
                     text = "Please fill e-mail and password to login you account. Or ",
                     textClick = "Sign Up",
-                    onClick = { navController.navigate(MainActivity.Screen.AuthSignup.route) }
+                    onClick = {navController.navigate(MainActivity.Screen.Home.route)}
+//                  onClick = { navController.navigate(MainActivity.Screen.AuthSignup.route) }
             )
 
             Spacer(modifier = Modifier.height(25.dp))
@@ -90,6 +91,7 @@ fun SigninScreen(
             VButtonPrimary(text = "Login", onClick = {})
         }
     }
+
 }
 
 @Preview(showBackground = true, device = Devices.NEXUS_5)

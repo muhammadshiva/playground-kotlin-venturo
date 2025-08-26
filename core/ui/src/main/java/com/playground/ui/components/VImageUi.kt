@@ -1,38 +1,83 @@
 package com.playground.ui.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 
 @Composable
-fun VImageViewClick (
-    onClick: () -> Unit = {},
-    color: Color = Color.Black,
-    imageVector: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
-    imageDescription: String = "Back",
-    modifier: Modifier = Modifier.size(24.dp)
-
-){
-    IconButton(onClick = {onClick()}){
+fun VImageViewClick(
+        onClick: () -> Unit = {},
+        color: Color = Color.Black,
+        imageVector: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
+        imageDescription: String = "Back",
+        modifier: Modifier = Modifier.size(24.dp)
+) {
+    IconButton(onClick = { onClick() }) {
         Icon(
-            imageVector = imageVector,
-            contentDescription = imageDescription,
-            modifier = modifier,
-            tint = color
+                imageVector = imageVector,
+                contentDescription = imageDescription,
+                modifier = modifier,
+                tint = color
         )
     }
 }
 
 @Preview
 @Composable
-fun VImageViewClickPreview(){
+fun VImageViewClickPreview() {
     VImageViewClick()
+}
+
+@Composable
+fun VImageViewPhotoUrl(
+        url: String,
+        description: String,
+        modifier: Modifier = Modifier
+) {
+    val painter =
+            rememberAsyncImagePainter(
+                ImageRequest.Builder(LocalContext.current).data(url).apply(block = fun ImageRequest.Builder.(){
+                    crossfade(enable = true)
+                        .transformations()
+                        .build()
+                }).build()
+            )
+
+    val state = painter.state
+
+    Box(
+            contentAlignment = Alignment.Center,
+    ) {
+        if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+            CircularProgressIndicator()
+        }
+
+        Image(
+                painter = painter,
+                contentDescription = description,
+                modifier = modifier,
+        )
+    }
+}
+
+@Preview
+@Composable
+fun VImageViewPhotoUrlPreview() {
+    VImageViewPhotoUrl(url = "", description = "")
 }
